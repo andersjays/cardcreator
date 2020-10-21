@@ -62,10 +62,9 @@ export default class CustomizeCard extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Recipient Mailing Address</label>
-                                    <input placeholder='To Address' />
+                                    <input placeholder='Mailing Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
-                                <Form.Checkbox label='Send Mail' />
                                 <Form.Button onClick={this.open}>Submit</Form.Button>
                                 <Confirm
                                   open={this.state.open}
@@ -118,7 +117,7 @@ export default class CustomizeCard extends Component {
                                             <Grid>
                                                 <Grid.Row columns={2}>
                                                     <Grid.Column onClick={this.handleChangePane} pane="occassion">
-                                                        <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />
+                                                        <Image style={{transform: 'rotate(180deg)', border: '3px solid #adfc03'}} src={this.state.occasionSource} />
                                                     </Grid.Column>
                                                     <Grid.Column onClick={this.handleChangePane} pane="items">
                                                         <Image size="medium" src={this.state.itemSource} />
@@ -156,7 +155,6 @@ export default class CustomizeCard extends Component {
                                     <input placeholder='To Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
-                                <Form.Checkbox label='Send Mail' />
                                 <Form.Button onClick={this.open}>Submit</Form.Button>
                                 <Confirm
                                   open={this.state.open}
@@ -211,7 +209,7 @@ export default class CustomizeCard extends Component {
                                                         <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />
                                                     </Grid.Column>
                                                     <Grid.Column onClick={this.handleChangePane} pane="item">
-                                                        <Image size="medium" src={this.state.itemSource} />
+                                                        <Image size="medium" src={this.state.itemSource} style={{border: '3px solid #adfc03'}}/>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row columns={2}>

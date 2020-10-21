@@ -120,7 +120,7 @@ export default class SendEcard extends Component {
                                             <Grid >
                                                 <Grid.Row columns={1}>
                                                     <Grid.Column onClick={this.handleChangePane} pane="occassion">
-                                                        <Image style={{margin: 'auto', padding: '10px'}} size="large" src={this.state.occasionSource} />
+                                                        <Image style={{margin: 'auto', padding: '10px', border: '3px solid #adfc03'}} size="large" src={this.state.occasionSource} />
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row centered columns={1} style={{ paddingTop: '0rem', paddingBottom: '0rem' }}>
@@ -239,7 +239,7 @@ export default class SendEcard extends Component {
                                                 </Grid.Row>
                                                 <Grid.Row columns={1} onClick={this.handleChangePane} pane="item">
                                                     <Grid.Column>
-                                                        <Image style={{margin: 'auto', padding: '10px'}} size="large" src={this.state.itemSource} />
+                                                        <Image style={{margin: 'auto', padding: '10px', border: '3px solid #adfc03'}} size="large" src={this.state.itemSource} />
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row columns={1}>
