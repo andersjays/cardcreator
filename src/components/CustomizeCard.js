@@ -71,7 +71,6 @@ export default class CustomizeCard extends Component {
                                   onCancel={this.cancel}
                                   onConfirm={this.confirm}
                                 />
-                                <Form.Button>Submit</Form.Button>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={10}>
