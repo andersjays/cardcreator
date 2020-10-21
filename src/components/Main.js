@@ -4,11 +4,11 @@ import CustomizeCard from './CustomizeCard';
 import SendEcard from './SendEcard';
 
 export default class Main extends Component {
-  state = { activeItem: 'PDF' }
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  state = { activeItem: 'PDF' };
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { activeItem } = this.state
+    const { activeItem } = this.state;
     if (activeItem === 'PDF'){
         return (
             <Grid divided>
