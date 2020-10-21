@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { Form, Grid, Image, Segment } from 'semantic-ui-react'
+import ReactDOMServer from 'react-dom/server';
+import { Form, Grid, Image, Segment, Confirm } from 'semantic-ui-react'
 import Coverflow from 'react-coverflow';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const ItemOptions = [
     { value: '/images/item/2018GG WT - Dairy Cow.jpg', text: 'Dairy Cow' },
@@ -17,7 +20,8 @@ export default class CustomizeCard extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            occasionSource: '/images/occasion/card-header-thank-you.png'
+            occasionSource: '/images/occasion/card-header-thank-you.png',
+            open: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleItemClick = this.handleItemClick.bind(this);
@@ -32,6 +36,12 @@ export default class CustomizeCard extends Component {
         this.setState({
             occasionSource: e.currentTarget.getAttribute('src')
           });
+    }
+
+    open = () => this.setState({ open: true })
+    cancel = () => this.setState({ open: false })
+    confirm = () => {
+        this.setState({ open: false })
     }
     render() {
         return(
@@ -70,7 +80,12 @@ export default class CustomizeCard extends Component {
                         />
                         </Form.Field>
                         <Form.Checkbox label='Send Mail' />
-                        <Form.Button>Submit</Form.Button>
+                        <Form.Button onClick={this.open}>Submit</Form.Button>
+                        <Confirm
+                            open={this.state.open}
+                            onCancel={this.cancel}
+                            onConfirm={this.confirm}
+                        />
                     </Form>
                     </Grid.Column>
                     <Grid.Column width={10}>
@@ -115,7 +130,7 @@ export default class CustomizeCard extends Component {
                 </Coverflow>
                     </Segment>
                     <Segment>
-                    <Grid>
+                    <Grid id='PDFwwww'>
                         <Grid.Row columns={2}>
                           <Grid.Column>
                             <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />

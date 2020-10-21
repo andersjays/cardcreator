@@ -119,7 +119,7 @@ export default class SendEcard extends Component {
                 </Coverflow>
                     </Segment>
                     <Segment>
-                    <Grid >
+                    <Grid id='PDF'>
                         <Grid.Row columns={1}>
                           <Grid.Column >
                             <Image style={{margin: 'auto', padding: '10px'}} size="large" src={this.state.occasionSource} />
