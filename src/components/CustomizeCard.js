@@ -152,7 +152,7 @@ export default class CustomizeCard extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Recipient Mailing Address</label>
-                                    <input placeholder='To Address' />
+                                    <input placeholder='Mailing Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
                                 <Form.Button onClick={this.open}>Submit</Form.Button>
