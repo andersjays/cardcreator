@@ -1,6 +1,3 @@
-.App {
-  text-align: center;
-}
 
 .App-logo {
   height: 40vmin;
@@ -28,10 +25,39 @@
   color: #61dafb;
 }
 
+.Table-padding {
+  padding: 20px;
+}
+
+.Grid-navbar-padding {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+
+.Segment-navbar-padding {
+  background-color: #FFFFFF !important;
+  padding: 1 rem 1rem !important;
+}
+
+.Segment-navbar-padding1 {
+  background-color: #4C4C4E !important;
+  padding: .4rem 1rem !important;
+}
+
+.Grid-main-padding {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+
+.Header-navbar {
+  padding: 2rem !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
