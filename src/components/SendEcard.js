@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Grid, Image, Segment, Confirm } from 'semantic-ui-react'
+import {Form, Grid, Image, Segment, Confirm, Button, Modal} from 'semantic-ui-react'
 import Coverflow from 'react-coverflow';
 
 const ItemOptions = [
@@ -19,11 +19,15 @@ export default class SendEcard extends Component {
         this.state ={
             occasionSource: '/images/occasion/card-header-thank-you.png',
             itemSource: '/images/item/2018GG WT - Dairy Cow.jpg',
-            activePane: 'occassion'
+            activePane: 'occassion',
+            modalOpen: false
         };
         this.handleOccassionClick = this.handleOccassionClick.bind(this);
         this.handleItemClick = this.handleItemClick.bind(this);
         this.handleChangePane = this.handleChangePane.bind(this);
+        this.open = this.open.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.confirm = this.confirm.bind(this);
     }
     handleChangePane = (e) => {
         this.setState({
@@ -45,11 +49,9 @@ export default class SendEcard extends Component {
             itemSource: e.currentTarget.getAttribute('src')
         });
     };
-    open = () => this.setState({ open: true })
-    cancel = () => this.setState({ open: false })
-    confirm = () => {
-        this.setState({ open: false })
-    };
+    open = () => this.setState({ modalOpen: true });
+    cancel = () => this.setState({ modalOpen: false });
+    confirm = () => this.setState({ modalOpen: false });
     render() {
         if(this.state.activePane === 'occassion'){
             return(
@@ -67,12 +69,19 @@ export default class SendEcard extends Component {
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...'
                                                onChange={this.onChange} />
-                                <Form.Button onClick={this.open}>Submit</Form.Button>
-                                <Confirm
-                                  open={this.state.open}
-                                  onCancel={this.cancel}
-                                  onConfirm={this.confirm}
-                                />
+                                <Modal
+                                    trigger={<Button>Send</Button>}
+                                    onOpen={this.open}
+                                    open={this.state.modalOpen}
+                                >
+                                    <Modal.Header>Your card has been created</Modal.Header>
+                                    <Modal.Content>Your card has been created and will be sent shortly. Do you want to create a new card?</Modal.Content>
+                                    <Modal.Actions>
+                                        <Button onClick={this.confirm}>Yes</Button>
+                                        <Button onClick={this.cancel} positive>I want to re-use my previous design</Button>
+                                        <Button onClick={this.cancel}>Cancel and Exit</Button>
+                                    </Modal.Actions>
+                                </Modal>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={8}>
@@ -170,12 +179,19 @@ export default class SendEcard extends Component {
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...'
                                                onChange={this.onChange} />
-                                <Form.Button onClick={this.open}>Submit</Form.Button>
-                                <Confirm
-                                  open={this.state.open}
-                                  onCancel={this.cancel}
-                                  onConfirm={this.confirm}
-                                />
+                                <Modal
+                                    trigger={<Button>Send</Button>}
+                                    onOpen={this.open}
+                                    open={this.state.modalOpen}
+                                >
+                                    <Modal.Header>Your card has been created</Modal.Header>
+                                    <Modal.Content>Your card has been created and will be sent shortly. Do you want to create a new card?</Modal.Content>
+                                    <Modal.Actions>
+                                        <Button onClick={this.confirm}>Yes</Button>
+                                        <Button onClick={this.cancel} positive>I want to re-use my previous design</Button>
+                                        <Button onClick={this.cancel}>Cancel and Exit</Button>
+                                    </Modal.Actions>
+                                </Modal>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={8}>
