@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Form, Grid, Image, Segment, Confirm } from 'semantic-ui-react';
+import React, { Component } from 'react'
+import { Form, Grid, Image, Segment, Confirm, Button, Modal } from 'semantic-ui-react'
 import Coverflow from 'react-coverflow';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -23,12 +23,16 @@ export default class CustomizeCard extends Component {
             occasionSource: '/images/occasion/card-header-thank-you.png',
             itemSource: '/images/item/2018GG WT - Dairy Cow.jpg',
             activePane: 'occassion',
-            open: false
+            modalOpen: false
         };
         this.handleItemClick = this.handleItemClick.bind(this);
         this.handleOccassionClick = this.handleOccassionClick.bind(this);
         this.handleChangePane = this.handleChangePane.bind(this);
+        this.open = this.open.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.confirm = this.confirm.bind(this);
     }
+
     handleOccassionClick = (e) => {
         this.setState({
             occasionSource: e.currentTarget.getAttribute('src')
@@ -44,23 +48,17 @@ export default class CustomizeCard extends Component {
             activePane: e.currentTarget.getAttribute('pane')
         });
     };
-    open = () => {
-        this.setState({ open: true })
-    }
-    cancel = () => this.setState({ open: false })
-    confirm = () => {
-        this.setState({ open: false })
+    open = () => this.setState({ modalOpen: true });
+    cancel = () => this.setState({ modalOpen: false });
+    confirm = () =>{ this.setState({ modalOpen: false });
         window.scrollTo(0,0)
         html2canvas(document.getElementById("PDF"), {scale: "2"}).then(function(canvas) {
             let doc = new jsPDF("portrait", "mm", "a4");
             let width = doc.internal.pageSize.getWidth()
             let height = doc.internal.pageSize.getHeight()
-
             let widthRatio = width / canvas.width
             let heightRatio = height / canvas.height
-
             let ratio = widthRatio > heightRatio ? heightRatio : widthRatio
-
             doc.addImage(
               canvas.toDataURL('image/jpeg', 1.0),
               'JPEG',
@@ -85,16 +83,22 @@ export default class CustomizeCard extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Recipient Mailing Address</label>
-                                    <input placeholder='To Address' />
+                                    <input placeholder='Mailing Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
-                                <Form.Checkbox label='Send Mail' />
-                                <Form.Button onClick={this.open}>Submit</Form.Button>
-                                <Confirm
-                                  open={this.state.open}
-                                  onCancel={this.cancel}
-                                  onConfirm={this.confirm}
-                                />
+                                <Modal
+                                    trigger={<Button>Print and Send</Button>}
+                                    onOpen={this.open}
+                                    open={this.state.modalOpen}
+                                >
+                                    <Modal.Header>Your card has been created</Modal.Header>
+                                    <Modal.Content>Your card has been created and will be processed shortly. Do you want to create a new card?</Modal.Content>
+                                    <Modal.Actions>
+                                        <Button onClick={this.confirm}>Yes</Button>
+                                        <Button onClick={this.cancel} positive>I want to re-use my previous design</Button>
+                                        <Button onClick={this.cancel}>Cancel and Exit</Button>
+                                    </Modal.Actions>
+                                </Modal>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={10}>
@@ -141,7 +145,7 @@ export default class CustomizeCard extends Component {
                                             <Grid id="PDF">
                                                 <Grid.Row columns={2}>
                                                     <Grid.Column onClick={this.handleChangePane} pane="occassion">
-                                                        <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />
+                                                        <Image style={{transform: 'rotate(180deg)', border: '3px solid #adfc03'}} src={this.state.occasionSource} />
                                                     </Grid.Column>
                                                     <Grid.Column onClick={this.handleChangePane} pane="items">
                                                         <Image size="medium" src={this.state.itemSource} />
@@ -176,16 +180,22 @@ export default class CustomizeCard extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Recipient Mailing Address</label>
-                                    <input placeholder='To Address' />
+                                    <input placeholder='Mailing Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
-                                <Form.Checkbox label='Send Mail' />
-                                <Form.Button onClick={this.open}>Submit</Form.Button>
-                                <Confirm
-                                  open={this.state.open}
-                                  onCancel={this.cancel}
-                                  onConfirm={this.confirm}
-                                />
+                                <Modal
+                                    trigger={<Button>Print and Send</Button>}
+                                    onOpen={this.open}
+                                    open={this.state.modalOpen}
+                                >
+                                    <Modal.Header>Your card has been created</Modal.Header>
+                                    <Modal.Content>Your card has been created and will be processed shortly. Do you want to create a new card?</Modal.Content>
+                                    <Modal.Actions>
+                                        <Button onClick={this.confirm}>Yes</Button>
+                                        <Button onClick={this.cancel} positive>I want to re-use my previous design</Button>
+                                        <Button onClick={this.cancel}>Cancel and Exit</Button>
+                                    </Modal.Actions>
+                                </Modal>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={10}>
@@ -234,7 +244,7 @@ export default class CustomizeCard extends Component {
                                                         <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />
                                                     </Grid.Column>
                                                     <Grid.Column onClick={this.handleChangePane} pane="item">
-                                                        <Image size="medium" src={this.state.itemSource} />
+                                                        <Image size="medium" src={this.state.itemSource} style={{border: '3px solid #adfc03'}}/>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row columns={2}>
