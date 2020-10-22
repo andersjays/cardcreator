@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server';
-import { Form, Grid, Image, Segment, Confirm } from 'semantic-ui-react'
+import { Form, Grid, Image, Segment, Confirm, Button, Modal } from 'semantic-ui-react'
 import Coverflow from 'react-coverflow';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -23,12 +23,16 @@ export default class CustomizeCard extends Component {
             occasionSource: '/images/occasion/card-header-thank-you.png',
             itemSource: '/images/item/2018GG WT - Dairy Cow.jpg',
             activePane: 'occassion',
-            open: false
+            modalOpen: false
         };
         this.handleItemClick = this.handleItemClick.bind(this);
         this.handleOccassionClick = this.handleOccassionClick.bind(this);
         this.handleChangePane = this.handleChangePane.bind(this);
+        this.open = this.open.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.confirm = this.confirm.bind(this);
     }
+
     handleOccassionClick = (e) => {
         this.setState({
             occasionSource: e.currentTarget.getAttribute('src')
@@ -44,11 +48,9 @@ export default class CustomizeCard extends Component {
             activePane: e.currentTarget.getAttribute('pane')
         });
     };
-    open = () => this.setState({ open: true })
-    cancel = () => this.setState({ open: false })
-    confirm = () => {
-        this.setState({ open: false })
-    };
+    open = () => this.setState({ modalOpen: true });
+    cancel = () => this.setState({ modalOpen: false });
+    confirm = () => this.setState({ modalOpen: false });
     render() {
         if(this.state.activePane === 'occassion'){
             return(
@@ -65,12 +67,19 @@ export default class CustomizeCard extends Component {
                                     <input placeholder='Mailing Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
-                                <Form.Button onClick={this.open}>Submit</Form.Button>
-                                <Confirm
-                                  open={this.state.open}
-                                  onCancel={this.cancel}
-                                  onConfirm={this.confirm}
-                                />
+                                <Modal
+                                    trigger={<Button>Print and Send</Button>}
+                                    onOpen={this.open}
+                                    open={this.state.modalOpen}
+                                >
+                                    <Modal.Header>Your card has been created</Modal.Header>
+                                    <Modal.Content>Your card has been created and will be processed shortly. Do you want to create a new card?</Modal.Content>
+                                    <Modal.Actions>
+                                        <Button onClick={this.confirm}>Yes</Button>
+                                        <Button onClick={this.cancel} positive>I want to re-use my previous design</Button>
+                                        <Button onClick={this.cancel}>Cancel and Exit</Button>
+                                    </Modal.Actions>
+                                </Modal>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={10}>
@@ -155,12 +164,19 @@ export default class CustomizeCard extends Component {
                                     <input placeholder='Mailing Address' />
                                 </Form.Field>
                                 <Form.TextArea label='Custom Message' placeholder='Message...' />
-                                <Form.Button onClick={this.open}>Submit</Form.Button>
-                                <Confirm
-                                  open={this.state.open}
-                                  onCancel={this.cancel}
-                                  onConfirm={this.confirm}
-                                />
+                                <Modal
+                                    trigger={<Button>Print and Send</Button>}
+                                    onOpen={this.open}
+                                    open={this.state.modalOpen}
+                                >
+                                    <Modal.Header>Your card has been created</Modal.Header>
+                                    <Modal.Content>Your card has been created and will be processed shortly. Do you want to create a new card?</Modal.Content>
+                                    <Modal.Actions>
+                                        <Button onClick={this.confirm}>Yes</Button>
+                                        <Button onClick={this.cancel} positive>I want to re-use my previous design</Button>
+                                        <Button onClick={this.cancel}>Cancel and Exit</Button>
+                                    </Modal.Actions>
+                                </Modal>
                             </Form>
                         </Grid.Column>
                         <Grid.Column width={10}>
