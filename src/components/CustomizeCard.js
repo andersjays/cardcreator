@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import ReactDOMServer from 'react-dom/server';
-import { Form, Grid, Image, Segment, Confirm } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Form, Grid, Image, Segment, Confirm } from 'semantic-ui-react';
 import Coverflow from 'react-coverflow';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -15,6 +14,7 @@ const OccasionOptions = [
     { src: 'vl', value: 'Valentines', text: 'Valentines' },
     { src: 'chr', value: 'Christmas', text: 'Christmas' }
 ];
+const ref = React.createRef();
 
 export default class CustomizeCard extends Component {
     constructor(props) {
@@ -44,11 +44,34 @@ export default class CustomizeCard extends Component {
             activePane: e.currentTarget.getAttribute('pane')
         });
     };
-    open = () => this.setState({ open: true })
+    open = () => {
+        this.setState({ open: true })
+    }
     cancel = () => this.setState({ open: false })
     confirm = () => {
         this.setState({ open: false })
-    };
+        window.scrollTo(0,0)
+        html2canvas(document.getElementById("PDF"), {scale: "2"}).then(function(canvas) {
+            let doc = new jsPDF("portrait", "mm", "a4");
+            let width = doc.internal.pageSize.getWidth()
+            let height = doc.internal.pageSize.getHeight()
+
+            let widthRatio = width / canvas.width
+            let heightRatio = height / canvas.height
+
+            let ratio = widthRatio > heightRatio ? heightRatio : widthRatio
+
+            doc.addImage(
+              canvas.toDataURL('image/jpeg', 1.0),
+              'JPEG',
+              0,
+              0,
+              canvas.width * ratio,
+              canvas.height * ratio,
+            )
+            doc.save()
+        })
+    }
     render() {
         if(this.state.activePane === 'occassion'){
             return(
@@ -115,7 +138,7 @@ export default class CustomizeCard extends Component {
                                             </Coverflow>
                                         </Segment>
                                         <Segment>
-                                            <Grid>
+                                            <Grid id="PDF">
                                                 <Grid.Row columns={2}>
                                                     <Grid.Column onClick={this.handleChangePane} pane="occassion">
                                                         <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />
@@ -205,7 +228,7 @@ export default class CustomizeCard extends Component {
                                             </Coverflow>
                                         </Segment>
                                         <Segment>
-                                            <Grid>
+                                            <Grid id="PDF">
                                                 <Grid.Row columns={2}>
                                                     <Grid.Column onClick={this.handleChangePane} pane="occassion">
                                                         <Image style={{transform: 'rotate(180deg)'}} src={this.state.occasionSource} />
