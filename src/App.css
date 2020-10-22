@@ -1,4 +1,3 @@
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,13 +34,18 @@
 }
 
 .Segment-navbar-padding {
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
   padding: 1 rem 1rem !important;
 }
 
 .Segment-navbar-padding1 {
-  background-color: #4C4C4E !important;
-  padding: .4rem 1rem !important;
+  background-color: #241c16 !important;
+  padding: 3rem !important;
+}
+
+.logo {
+  position: relative;
+  top: -20px;
 }
 
 .Grid-main-padding {
@@ -51,6 +55,10 @@
 
 .Header-navbar {
   padding: 2rem !important;
+}
+
+.Input-invisible {
+  display: none;
 }
 
 @keyframes App-logo-spin {
